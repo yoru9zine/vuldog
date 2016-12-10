@@ -1,0 +1,35 @@
+{{define "cve.html.tmpl"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "header_common.tmpl"}}
+  </head>
+  <body style="padding-bottom: 70px;">
+    {{template "navbar.html.tmpl"}}
+    <div class="container">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>CVE-ID</th>
+            <th>Score</th>
+            <th>Published</th>
+            <th>Last Modified</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .}}
+          <tr>
+            <td><a href="./{{tolower .ID}}">{{.ID}}</a></td>
+            <td><span class="{{.ScoreColor}}">{{.CVSSBase.Score}}</span></td>
+            <td>{{.PublishedString}}</td>
+            <td>{{.LastModifiedString}}</td>
+            <td><span>{{.SummaryHead 80}}</span></td>
+          </tr>
+          {{- end -}}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+{{end}}

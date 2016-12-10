@@ -1,0 +1,74 @@
+{{define "cve_detail.html.tmpl"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "header_common.tmpl"}}
+  </head>
+  <body style="padding-bottom: 70px;">
+    {{template "navbar.html.tmpl"}}
+    <div class="container">
+      <h1>{{.ID}}</h1>
+      <div class="row">
+        <div class="col-md-2">Published</div>
+        <div class="col-md-10">{{.PublishedString}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Last Modified</div>
+        <div class="col-md-10">{{.LastModifiedString}}</div>
+      </div>
+
+      <h2>Summary</h2>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <p>{{.Summary}}</p>
+        </div>
+      </div>
+
+      <h2>Vulnerable Softwares</h2>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h3>CPE</h3>
+          {{range .VulnerableSoftwareList}}
+          <p>{{.}}</p>
+          {{end}}
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+          <h3>Related</h3>
+          {{range .Vendors}}
+          <button type="button" class="btn btn-default">
+            Vendor: {{.}}
+          </button>
+          {{end}}
+          {{range .Products}}
+          <button type="button" class="btn btn-default">
+            Product: {{.}}
+          </button>
+          {{end}}
+        </div>
+      </div>
+
+      <h2>CVSS Base Metrics</h2>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <table class="table">
+            <tbody>
+              <tr><th>Score</th><td>{{.CVSSBase.Score}}</td></tr>
+              <tr><th>Access Vector</th><td>{{.CVSSBase.AccessVector}}</td></tr>
+              <tr><th>Access Complexity</th><td>{{.CVSSBase.AccessComplexity}}</td></tr>
+              <tr><th>Authentication</th><td>{{.CVSSBase.Authentication}}</td></tr>
+              <tr><th>Confidentiality Impact</th><td>{{.CVSSBase.ConfidentialityImpact}}</td></tr>
+              <tr><th>Integrity Impact</th><td>{{.CVSSBase.IntegrityImpact}}</td></tr>
+              <tr><th>Availability Impact</th><td>{{.CVSSBase.AvailabilityImpact}}</td></tr>
+              <tr><th>Source</th><td>{{.CVSSBase.Source}}</td></tr>
+              <tr><th>Generated On Datetime</th><td>{{.CVSSBase.GeneratedOnDatetime.Format "01/02/2006 15:04"}}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId={{.ID}}">NVD {{.ID}}</a>
+      </div>
+    </div>
+  </body>
+</html>
+{{end}}
